@@ -1,13 +1,35 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, TextInput} from "react-native";
+import {View, Text, Image, StyleSheet, TextInput, TouchableOpacity} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
-function Pet({image, name,specie,age,location}) {
+function Pet({image, name,specie,age,location,  id, description, rating, price }) {
+  const navigation = useNavigation();
   return (
     
   <View>
          
-    <View style={styles.container}>
+         <TouchableOpacity onPress={() => navigation.navigate("Preview", { image, name, specie, age, location, description, rating, price })}>
+  <View style={styles.container}>
+  <View style={styles.imageContainer}>
+
+    <Image style={styles.image} source={image} />
+  </View>
+    <View style={styles.infoContainer}>
+    <Text style={styles.name}>{name}</Text>
+    <Text style={styles.specie}>{specie}</Text>
+    <Text style={styles.age}>{age} years old</Text>
+    <View style={[styles.lasts]}> 
+    <Text style={[styles.location, styles.last]} numberOfLines={1}><Ionicons name="md-location-outline" size={15} color="black" />{location}</Text>
+  </View>
+    </View>
+  </View>
+</TouchableOpacity>
+
+  </View>
+  )
+}
+{/* <View style={styles.container}>
     <View style={styles.imageContainer}>
       <Image source={image} style={styles.image} />
     </View>
@@ -19,17 +41,14 @@ function Pet({image, name,specie,age,location}) {
       <Text style={[styles.location, styles.last]} numberOfLines={1}><Ionicons name="md-location-outline" size={15} color="black" />{location}</Text>
       </View>
     </View>
-  </View>
-  </View>
-  )
-}
+  </View> */}
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         alignItems: "center",
         marginHorizontal: 20,
-        marginVertical: 10,
+        marginVertical: 5,
        
       },
       imageContainer: {
@@ -37,8 +56,8 @@ const styles = StyleSheet.create({
         marginRight: 35,
       },
       image: {
-        width: 200,
-        height: 200,
+        width: 180,
+        height: 180,
         borderRadius: 5,
       },
       infoContainer: {
@@ -47,7 +66,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 0,
         backgroundColor: "white",
         padding: 30,
-        marginLeft:144,
+        marginLeft:125,
         borderTopRightRadius: 9,
         borderBottomRightRadius: 9
       },
@@ -74,8 +93,10 @@ const styles = StyleSheet.create({
         opacity: 0.5,
         paddingTop: 6
         
-        
       },
+      mainContainer:{
+        marginBottom: 40
+      }
      
     });
 
